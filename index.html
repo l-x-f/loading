@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>loading</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #app {
+            height: 100vh;
+            width: 100%;
+            background-color: #000;
+            position: relative;
+        }
+
+        .img {
+            width: 400px;
+            height: 60px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%)
+        }
+
+
+
+        .img #cai {
+            width: 0;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: url("./assets/cai.svg");
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
+
+        .img #hei {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: url("./assets/hei.svg");
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button id="begin">重新开始</button>
+        <button id="start">开始</button>
+        <button id="stop">停止</button>
+        <button id="end">结束</button>
+        <div class="img">
+            <div id="cai"></div>
+            <div id="hei"></div>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
+
+
+<script>
+    var app = document.querySelector("#app")
+    var start = document.querySelector("#start")
+    var stop = document.querySelector("#stop")
+    var end = document.querySelector("#end")
+    var cai = document.querySelector("#cai")
+    var timer
+    var isStart = false;
+    var count = 0
+    var script
+
+
+    setTimeout(() => {
+        start.click()
+    }, 2000);
+
+    function createScript() {
+        script = document.createElement("script")
+        script.src = './timer.js'
+        app.appendChild(script);
+    }
+
+    start.onclick = function () {
+        createScript()
+    }
+    stop.onclick = function () {
+        timer && clearInterval(timer)
+    }
+    end.onclick = function () {
+        cai.style.width = 100 + "%"
+        timer && clearInterval(timer)
+
+    }
+    begin.onclick = function () {
+        timer && clearInterval(timer)
+        cai.style.width = 0 + "%"
+        count = 0
+        createScript()
+    }
+</script>
