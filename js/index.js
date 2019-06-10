@@ -1,52 +1,52 @@
-const start = document.querySelector("#start");
-const stop = document.querySelector("#stop");
-const end = document.querySelector("#end");
-const cai = document.querySelector("#cai");
+const loadingRestart = document.querySelector("#loadingRestart");
+const loadingStart = document.querySelector("#loadingStart");
+const loadingStop = document.querySelector("#loadingStop");
+const loadingEnd = document.querySelector("#loadingEnd");
+const after = document.querySelector("#after");
 const middleValue = 80;
+const step = 0.15;
+const timeInterval = 15;
 let timer;
 let count = 0;
 setTimeout(() => {
-  start.click();
+  loadingStart.click();
 }, 1000);
 
 function initTimer() {
   timer = setInterval(() => {
-    count = count + 0.1;
-    cai.style.width = count + "%";
+    count = count + step;
+    after.style.width = count + "%";
     if (count > middleValue) {
-      cai.style.width = middleValue + "%";
+      after.style.width = middleValue + "%";
       clearInterval(timer);
     }
-  }, 10);
+  }, timeInterval);
 }
 
-start.onclick = function() {
+loadingStart.onclick = function() {
   timer && clearInterval(timer);
   initTimer();
 };
 
-stop.onclick = function() {
+loadingStop.onclick = function() {
   timer && clearInterval(timer);
 };
 
-end.onclick = function() {
+loadingEnd.onclick = function() {
+  timer && clearInterval(timer);
   timer = setInterval(() => {
-    count = count + 0.1;
-    cai.style.width = count + "%";
+    count = count + 2 * step;
+    after.style.width = count + "%";
     if (count > 100) {
-      cai.style.width = 100 + "%";
+      after.style.width = 100 + "%";
       timer && clearInterval(timer);
     }
-  }, 10);
+  }, timeInterval / 2);
 };
 
-begin.onclick = function() {
+loadingRestart.onclick = function() {
   timer && clearInterval(timer);
-  cai.style.width = 0 + "%";
+  after.style.width = 0 + "%";
   count = 0;
   initTimer();
-};
-
-window.onload = function() {
-  end.click();
 };
